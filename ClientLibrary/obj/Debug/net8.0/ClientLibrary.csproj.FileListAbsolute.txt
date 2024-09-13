@@ -1,0 +1,15 @@
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/bin/Debug/net8.0/ClientLibrary.deps.json
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/bin/Debug/net8.0/ClientLibrary.dll
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/bin/Debug/net8.0/ClientLibrary.pdb
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/obj/Debug/net8.0/ClientLibrary.GeneratedMSBuildEditorConfig.editorconfig
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/obj/Debug/net8.0/ClientLibrary.AssemblyInfoInputs.cache
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/obj/Debug/net8.0/ClientLibrary.AssemblyInfo.cs
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/obj/Debug/net8.0/ClientLibrary.csproj.CoreCompileInputs.cache
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/obj/Debug/net8.0/ClientLibrary.dll
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/obj/Debug/net8.0/refint/ClientLibrary.dll
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/obj/Debug/net8.0/ClientLibrary.pdb
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/obj/Debug/net8.0/ref/ClientLibrary.dll
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/obj/Debug/net8.0/ClientLibrary.csproj.AssemblyReference.cache
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/bin/Debug/net8.0/BaseLibrary.dll
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/bin/Debug/net8.0/BaseLibrary.pdb
+/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/ClientLibrary/obj/Debug/net8.0/ClientLi.3D08BA28.Up2Date
