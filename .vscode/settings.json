@@ -1,5 +1,0 @@
-{
-    "explorer.fileNesting.patterns": {
-        "*.razor": "${capture}.razor.css"
-    }
-}
