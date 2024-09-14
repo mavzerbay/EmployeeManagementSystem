@@ -1,0 +1,93 @@
+@page "/identity/account/login"
+@using Client.Pages.OtherPages
+@using Syncfusion.Blazor.Popups
+
+@layout AuthenticationLayout
+
+@inject SfDialogService DialogService
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <EditForm Enhance Model="User" OnValidSubmit="HandleLogin">
+                <DataAnnotationsValidator />
+                <div class="card bg-dark"
+                    style="opacity: 0.9; margin-top: 50%; border-radius: 10px; color: white; font-weight: bold;">
+                    <div class="card-header text-center fs-5 mb-2">Login</div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center">
+                                <img src="../images/companyLogos/mavzerpansiyon.png" alt="Mavzer Pansiyon"
+                                    style="border-radius: 20px;" height="100">
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4"></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group mt-3">
+                            <label class="form-label">Email</label>
+                            <InputText class="form-control" @bind-Value="User.Email" />
+                        </div>
+                        <div class="form-group mt-3">
+                            <label class="form-label">Password</label>
+                            <InputText type="password" class="form-control" @bind-Value="User.Password" />
+                        </div>
+                        <div class="form-group mt-3">
+                            @if (ShowLoadingButton)
+                            {
+                                <ButtonLoadingSpinner />
+                            }
+                            else
+                            {
+                                <button class="btn btn-outline-primary float-end" type="submit">Login</button>
+                            }
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-center">
+                            Don't have account?
+                            <a href="identity/account/register">Sign Up</a>
+                            <ValidationSummary />
+                        </span>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+</div>
+
+@code {
+    public bool ShowLoadingButton { get; set; } = false;
+    Login User = new();
+
+    async Task HandleLogin()
+    {
+        ShowLoadingButton = true;
+        var response = await accountService.SignInAsync(User);
+        if (response.Flag)
+        {
+            await DisplayDialog(response.Message, "Login Success");
+            var customAuthStateProvider = (CustomAuthenticationStateProvider)AuthStateProvider;
+            await customAuthStateProvider.UpdateAuthenticationState(new UserSession
+                {
+                    Token = response.Token,
+                    RefreshToken =
+                response.RefreshToken
+                });
+            NavManager.NavigateTo("/", forceLoad: true);
+        }
+        else
+        {
+            await DisplayDialog(response.Message, "Login Failed");
+        }
+        ShowLoadingButton = false;
+    }
+
+    private async Task DisplayDialog(string content, string title)
+    {
+        await DialogService.AlertAsync(content, title);
+    }
+}

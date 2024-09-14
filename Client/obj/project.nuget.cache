@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7/Q1MLXAnto=",
+  "dgSpecHash": "jLxXPwSWRY4=",
   "success": true,
   "projectFilePath": "/Users/erbaymavzer/Projects/AspNetProjects/EmployeeManagementSystem/Client/Client.csproj",
   "expectedPackageFiles": [
@@ -41,6 +41,11 @@
     "/Users/erbaymavzer/.nuget/packages/microsoft.jsinterop.webassembly/8.0.0/microsoft.jsinterop.webassembly.8.0.0.nupkg.sha512",
     "/Users/erbaymavzer/.nuget/packages/microsoft.net.illink.tasks/8.0.8/microsoft.net.illink.tasks.8.0.8.nupkg.sha512",
     "/Users/erbaymavzer/.nuget/packages/microsoft.net.sdk.webassembly.pack/8.0.8/microsoft.net.sdk.webassembly.pack.8.0.8.nupkg.sha512",
+    "/Users/erbaymavzer/.nuget/packages/syncfusion.blazor.buttons/23.1.36/syncfusion.blazor.buttons.23.1.36.nupkg.sha512",
+    "/Users/erbaymavzer/.nuget/packages/syncfusion.blazor.core/23.1.36/syncfusion.blazor.core.23.1.36.nupkg.sha512",
+    "/Users/erbaymavzer/.nuget/packages/syncfusion.blazor.popups/23.1.36/syncfusion.blazor.popups.23.1.36.nupkg.sha512",
+    "/Users/erbaymavzer/.nuget/packages/syncfusion.blazor.themes/23.1.36/syncfusion.blazor.themes.23.1.36.nupkg.sha512",
+    "/Users/erbaymavzer/.nuget/packages/syncfusion.licensing/23.1.36/syncfusion.licensing.23.1.36.nupkg.sha512",
     "/Users/erbaymavzer/.nuget/packages/system.diagnostics.diagnosticsource/8.0.0/system.diagnostics.diagnosticsource.8.0.0.nupkg.sha512",
     "/Users/erbaymavzer/.nuget/packages/system.identitymodel.tokens.jwt/8.0.2/system.identitymodel.tokens.jwt.8.0.2.nupkg.sha512",
     "/Users/erbaymavzer/.nuget/packages/system.io.pipelines/8.0.0/system.io.pipelines.8.0.0.nupkg.sha512",
