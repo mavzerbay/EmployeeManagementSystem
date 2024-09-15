@@ -8,6 +8,7 @@ using ClientLibrary.Services.Contracts;
 using ClientLibrary.Services.Implementations;
 using Syncfusion.Blazor;
 using Syncfusion.Blazor.Popups;
+using Client.ApplicationStates;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -24,6 +25,8 @@ builder.Services.AddScoped<GetHttpClient>();
 builder.Services.AddScoped<LocalStorageService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 builder.Services.AddScoped<IUserAccountService, UserAccountService>();
+
+builder.Services.AddScoped<DepartmentState>();
 
 builder.Services.AddSyncfusionBlazor();
 builder.Services.AddScoped<SfDialogService>();
