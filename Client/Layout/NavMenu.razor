@@ -42,7 +42,7 @@
                             <span>Administration</span>
                         </div>
                     </NavLink>
-                    <a class="nav-link p-2 text-white" style="margin-left: 1rem; visibility: @CssStyle;">
+                    <a class="nav-link p-2 text-white" style="margin-left: 1rem; visibility: @_cssStyle;">
                         <div class="hstack">
                             <span class="bi bi-people fs-5 text-center" aria-hidden="true"
                                   style="margin-top: -2rem;">
@@ -61,7 +61,7 @@
                             <span>Department</span>
                         </div>
                     </NavLink>
-                    <div class="nav-link p-2 text-white" style="margin-left: 1rem; visibility: @DepartmentCssStyle;">
+                    <div class="nav-link p-2 text-white" style="margin-left: 1rem; visibility: @_departmentCssStyle;">
                         <ul class="list-group">
                             <li style="list-style: none;" class="cursorStyle">
                                 <NavLink class="nav-link p-2" href="/general" Match="NavLinkMatch.All">
@@ -121,18 +121,18 @@
 </style>
 
 @code {
-    private bool collapseNavMenu = false;
+    private bool _collapseNavMenu = false;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string? NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {
-        collapseNavMenu = !collapseNavMenu;
+        _collapseNavMenu = !_collapseNavMenu;
     }
 
-    public string DepartmentMargin { get; set; } = "-3.5rem";
-    private string CssStyle = "hidden";
-    public bool ShowHide { get; set; } = false;
+    private string DepartmentMargin { get; set; } = "-3.5rem";
+    private string _cssStyle = "hidden";
+    private bool ShowHide { get; set; } = false;
 
     private void ShowAdminMenuContainer()
     {
@@ -140,25 +140,22 @@
         if (ShowHide)
         {
             DepartmentMargin = "0";
-            CssStyle = "visible";
+            _cssStyle = "visible";
         }
         else
         {
             DepartmentMargin = "-3.5rem";
-            CssStyle = "hidden";
+            _cssStyle = "hidden";
         }
     }
 
-    private string DepartmentCssStyle = "hidden";
-    public bool ShowHideDepartment { get; set; } = false;
+    private string _departmentCssStyle = "hidden";
+    private bool ShowHideDepartment { get; set; } = false;
 
     private void ShowDepartmentMenuContainer()
     {
         ShowHideDepartment = !ShowHideDepartment;
-        if (ShowHideDepartment)
-            DepartmentCssStyle = "visible";
-        else
-            DepartmentCssStyle = "hidden";
+        _departmentCssStyle = ShowHideDepartment ? "visible" : "hidden";
     }
 
     private void GeneralDepartmentClicked()
