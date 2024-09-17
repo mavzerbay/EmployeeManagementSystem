@@ -8,7 +8,6 @@ namespace ServerLibrary.Repositories.Implementations
 {
     public class DepartmentRepository(AppDbContext context) : IGenericRepositoryInterface<Department>
     {
-
         public async Task<GeneralResponse> Create(Department entity)
         {
             if (await CheckName(entity.Name)) return new(false, "Sorry, the department name is already in use.");
@@ -27,7 +26,8 @@ namespace ServerLibrary.Repositories.Implementations
             return Success();
         }
 
-        public async Task<List<Department>> GetAll() => await context.Departments.ToListAsync();
+        public async Task<List<Department>> GetAll() =>
+            await context.Departments.AsNoTracking().Include(d => d.GeneralDepartment).ToListAsync();
 
         public async Task<Department?> GetById(int id) => await context.Departments.FindAsync(id);
 

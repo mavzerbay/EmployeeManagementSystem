@@ -1,0 +1,151 @@
+﻿@page "/general"
+
+@implements IDisposable
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="float-start">General Department</h4>
+                    <button class="btn btn-outline-success float-end" @onclick="OpenDialog">
+                        <i class="bi bi-plus-circle-dotted"></i>
+                        Add Department
+                    </button>
+                </div>
+                <div class="card-header" style="max-height: 580px; overflow-x: hidden; overflow-y: scroll;">
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if (GeneralDepartments.Any())
+                            {
+                                for (int i = 0; i < GeneralDepartments.Count; i++)
+                                {
+                                    GeneralDepartment department = GeneralDepartments[i];
+                                    <tr>
+                                        <th scope="row">
+                                            @(i + 1)
+                                        </th>
+                                        <td>@department.Id</td>
+                                        <td>@department.Name</td>
+                                        <td>
+                                            <i class="bi bi-pencil text-info cursorStyle" @onclick="() => EditClicked(department)"></i>
+                                            <i class="bi bi-trash text-danger cursorStyle" @onclick="() => DeleteClicked(department)"></i>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<GeneralDepartmentDialog @ref="_generalDepartmentDialog" HandleSaveOperationEvent="HandleSaveOperationEvent" GeneralDepartment="_department"></GeneralDepartmentDialog>
+
+
+<style>
+    .cursorStyle {
+        cursor: pointer;
+    }
+</style>
+
+@code {
+    GeneralDepartmentDialog? _generalDepartmentDialog;
+    GeneralDepartment _department = new();
+    public string Title { get; set; } = "Add";
+
+    public List<GeneralDepartment> GeneralDepartments { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetGeneralDepartments();
+        GlobalState.Action += StateHasChanged;
+    }
+
+    private async Task GetGeneralDepartments()
+    {
+        var response = await GeneralDepartmentService.GetAll(Constants.GeneralDepartmentBaseUrl);
+        GeneralDepartments = response.OrderByDescending(x => x.Id).ToList();
+        StateHasChanged();
+    }
+
+    private void OpenDialog()
+    {
+        _department = new();
+        _generalDepartmentDialog?.OpenDialog();
+    }
+
+    private async Task HandleSaveOperationEvent(GeneralDepartment generalDepartment)
+    {
+        bool successCheck = false;
+
+        if (generalDepartment.Id > 0)
+        {
+            var response = await GeneralDepartmentService.Update(generalDepartment, Constants.GeneralDepartmentBaseUrl);
+            successCheck = await DisplayMessage(response.Flag, response.Message);
+        }
+        else
+        {
+            var response = await GeneralDepartmentService.Create(generalDepartment, Constants.GeneralDepartmentBaseUrl);
+            successCheck = await DisplayMessage(response.Flag, response.Message);
+        }
+
+        if (successCheck)
+        {
+            generalDepartment = new();
+            await GetGeneralDepartments();
+            _generalDepartmentDialog?.ChangeTitle("Add");
+            _generalDepartmentDialog?.CloseDialog();
+        }
+    }
+
+    private void EditClicked(GeneralDepartment generalDepartment)
+    {
+        _generalDepartmentDialog?.ChangeTitle("Edit");
+        _department = generalDepartment;
+        _generalDepartmentDialog?.OpenDialog();
+    }
+
+    private async void DeleteClicked(GeneralDepartment generalDepartment)
+    {
+        bool confirm = await DialogService.ConfirmAsync($"Are you sure you want to delete {generalDepartment.Name}?", "Confirm Delete");
+        if (!confirm) return;
+        
+        var response = await GeneralDepartmentService.DeleteById(generalDepartment.Id, Constants.GeneralDepartmentBaseUrl);
+        if (await DisplayMessage(response.Flag, response.Message))
+            await GetGeneralDepartments();
+    }
+
+    private async Task<bool> DisplayMessage(bool flag, string message)
+    {
+        if (flag)
+        {
+            await DialogService.AlertAsync(message, "Success!");
+            return true;
+        }
+        else
+        {
+            await DialogService.AlertAsync(message, "Error!");
+            return false;
+        }
+    }
+
+    public void Dispose()
+    {
+        GlobalState.Action -= StateHasChanged;
+    }
+
+}

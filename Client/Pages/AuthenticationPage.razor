@@ -1,8 +1,5 @@
 @page "/"
 
-@inject NavigationManager NavManager
-
-
 @code {
     [CascadingParameter] public Task<AuthenticationState> AuthenticationState { get; set; } = default!;
     protected override async Task OnInitializedAsync()

@@ -1,26 +1,22 @@
 @page "/identity/account/register"
-@using Client.Pages.OtherPages
-@using Syncfusion.Blazor.Popups
 
 @layout AuthenticationLayout
-
-@inject SfDialogService DialogService
 
 <div class="container">
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
-            <EditForm Enhance Model="User" OnValidSubmit="HandleRegister">
-                <DataAnnotationsValidator />
+            <EditForm Enhance Model="_user" OnValidSubmit="HandleRegister">
+                <DataAnnotationsValidator/>
                 <div class="card bg-dark"
-                    style="opacity: 0.9; margin-top: 50%; border-radius: 10px; color: white; font-weight: bold;">
+                     style="opacity: 0.9; margin-top: 50%; border-radius: 10px; color: white; font-weight: bold;">
                     <div class="card-header text-center fs-5">Register an account</div>
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-4"></div>
                             <div class="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center">
                                 <img src="../images/companyLogos/mavzerpansiyon.png" alt="Mavzer Pansiyon"
-                                    style="border-radius: 20px;" height="100">
+                                     style="border-radius: 20px;" height="100">
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4"></div>
                         </div>
@@ -28,24 +24,24 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label class="form-label">Fullname</label>
-                            <InputText class="form-control" @bind-Value="User.Fullname" />
+                            <InputText class="form-control" @bind-Value="_user.Fullname"/>
                         </div>
                         <div class="form-group mt-3">
                             <label class="form-label">Email</label>
-                            <InputText class="form-control" @bind-Value="User.Email" autocomplete="off" />
+                            <InputText class="form-control" @bind-Value="_user.Email" autocomplete="off"/>
                         </div>
                         <div class="form-group mt-3">
                             <label class="form-label">Password</label>
-                            <InputText type="password" autocomplete="new-password" class="form-control" @bind-Value="User.Password"                                />
+                            <InputText type="password" autocomplete="new-password" class="form-control" @bind-Value="_user.Password"/>
                         </div>
                         <div class="form-group mt-3">
                             <label class="form-label">Confirm Password</label>
-                            <InputText type="password" autocomplete="new-password" class="form-control" @bind-Value="User.ConfirmPassword" />
+                            <InputText type="password" autocomplete="new-password" class="form-control" @bind-Value="_user.ConfirmPassword"/>
                         </div>
                         <div class="form-group mt-3">
                             @if (ShowLoadingButton)
                             {
-                                <ButtonLoadingSpinner />
+                                <ButtonLoadingSpinner/>
                             }
                             else
                             {
@@ -57,7 +53,7 @@
                         <span class="text-center">
                             Have account already?
                             <a href="identity/account/login">Sign In</a>
-                            <ValidationSummary />
+                            <ValidationSummary/>
                         </span>
                     </div>
                 </div>
@@ -68,29 +64,33 @@
 </div>
 
 @code {
-    public bool ShowLoadingButton { get; set; } = false;
-    Register User = new();
+    private bool ShowLoadingButton { get; set; }
+    private Register _user = new();
     [CascadingParameter] public Task<AuthenticationState> AuthenticationState { get; set; } = default!;
+
     protected override async Task OnInitializedAsync()
     {
+        ShowLoadingButton = false;
         await CheckUserAuthentication();
     }
 
     async Task HandleRegister()
     {
         ShowLoadingButton = true;
-        var response = await accountService.CreateAsync(User);
+        var response = await AccountService.CreateAsync(_user);
         if (response.Flag)
         {
             await DisplayDialog(response.Message, "Register Success");
-            User = new();
+            _user = new();
         }
         else
         {
             await DisplayDialog(response.Message, "Register Failed");
         }
+
         ShowLoadingButton = false;
     }
+
     private async Task DisplayDialog(string content, string title)
     {
         await DialogService.AlertAsync(content, title);
@@ -104,4 +104,5 @@
         if (isAuthenticated)
             NavManager.NavigateTo("/home/dashboard");
     }
+
 }

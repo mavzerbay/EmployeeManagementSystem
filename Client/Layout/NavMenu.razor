@@ -1,6 +1,5 @@
 ﻿@page "/nav"
-@using Client.ApplicationStates
-@inject DepartmentState departmentState
+@inject GlobalState GlobalState
 
 <AuthorizeView>
     <Authorized>
@@ -38,54 +37,74 @@
                     <NavLink class="nav-link p-2" @onclick="ShowAdminMenuContainer">
                         <div class="hstack gap-1">
                             <span class="bi bi-person-fill fs-3 text-center" aria-hidden="true"
-                                style="margin-top: -2rem;"></span>
+                                  style="margin-top: -2rem;">
+                            </span>
                             <span>Administration</span>
                         </div>
                     </NavLink>
                     <a class="nav-link p-2 text-white" style="margin-left: 1rem; visibility: @CssStyle;">
                         <div class="hstack">
                             <span class="bi bi-people fs-5 text-center" aria-hidden="true"
-                                style="margin-top: -2rem;"></span>
+                                  style="margin-top: -2rem;">
+                            </span>
                             <span>Users</span>
                         </div>
                     </a>
                 </div>
                 <div class="nav-item px-3" style="margin-top: @DepartmentMargin;">
-                    <NavLink class="nav-link p-2" @onclick="ShowDepartmentMenuContainer" style="cursor: pointer;">
+                    <NavLink class="nav-link p-2" href="/general" Match="NavLinkMatch.Prefix"
+                             @onclick="ShowDepartmentMenuContainer" style="cursor: pointer;">
                         <div class="hstack gap-1">
                             <span class="bi bi-backpack4-fill fs-3 text-center" aria-hidden="true"
-                                style="margin-top: -2rem;"></span>
+                                  style="margin-top: -2rem;">
+                            </span>
                             <span>Department</span>
                         </div>
                     </NavLink>
                     <div class="nav-link p-2 text-white" style="margin-left: 1rem; visibility: @DepartmentCssStyle;">
                         <ul class="list-group">
                             <li style="list-style: none;" class="cursorStyle">
-                                <a @onclick="GeneralDepartmentClicked" class="nav-link p-2">
+                                <NavLink class="nav-link p-2" href="/general" Match="NavLinkMatch.All">
                                     <div class="hstack text-wrap">
                                         <span class="bi bi-file-medical fs-5 text-center" aria-hidden="true"
-                                            style="margin-top: -2rem;"></span>
+                                              style="margin-top: -2rem;">
+                                        </span>
                                         <span class="fs-6">General</span>
                                     </div>
-                                </a>
+                                </NavLink>
                             </li>
                             <li style="list-style: none;" class="cursorStyle">
-                                <a class="nav-link p-2">
+                                <NavLink class="nav-link p-2" href="/general/department" Match="NavLinkMatch.All">
                                     <div class="hstack">
                                         <span class="bi bi-substack fs-5 text-center" aria-hidden="true"
-                                            style="margin-top: -2rem;"></span>
+                                              style="margin-top: -2rem;">
+                                        </span>
                                         <span class="fs-6">Department</span>
                                     </div>
-                                </a>
+                                </NavLink>
                             </li>
                             <li style="list-style: none;" class="cursorStyle">
-                                <a class="nav-link p-2">
+                                <NavLink class="nav-link p-2" href="/general/branch" Match="NavLinkMatch.All">
                                     <div class="hstack">
                                         <span class="bi bi-chevron-bar-contract fs-5 text-center" aria-hidden="true"
-                                            style="margin-top: -2rem;"></span>
+                                              style="margin-top: -2rem;">
+                                        </span>
                                         <span class="fs-6">Branch</span>
                                     </div>
-                                </a>
+                                </NavLink>
+                            </li>
+                            <li style="list-style: none">
+                                <hr />
+                            </li>
+                            <li style="list-style: none">
+                                <NavLink class="nav-link p-2" href="/general/country" Match="NavLinkMatch.All">
+                                    <div class="hstack">
+                                        <span class="bi bi-geo fs-5 text-center" aria-hidden="true"
+                                              style="margin-top: -2rem;">
+                                        </span>
+                                        <span class="fs-6">Country</span>
+                                    </div>
+                                </NavLink>
                             </li>
                         </ul>
                     </div>
@@ -94,6 +113,12 @@
         </div>
     </Authorized>
 </AuthorizeView>
+
+<style>
+    .cursorStyle {
+        cursor: pointer;
+    }
+</style>
 
 @code {
     private bool collapseNavMenu = false;
@@ -104,9 +129,11 @@
     {
         collapseNavMenu = !collapseNavMenu;
     }
+
     public string DepartmentMargin { get; set; } = "-3.5rem";
     private string CssStyle = "hidden";
     public bool ShowHide { get; set; } = false;
+
     private void ShowAdminMenuContainer()
     {
         ShowHide = !ShowHide;
@@ -124,6 +151,7 @@
 
     private string DepartmentCssStyle = "hidden";
     public bool ShowHideDepartment { get; set; } = false;
+
     private void ShowDepartmentMenuContainer()
     {
         ShowHideDepartment = !ShowHideDepartment;
@@ -135,6 +163,7 @@
 
     private void GeneralDepartmentClicked()
     {
-        departmentState.GeneralDepartmentClicked();
+        GlobalState.GeneralDepartmentClicked();
     }
+
 }

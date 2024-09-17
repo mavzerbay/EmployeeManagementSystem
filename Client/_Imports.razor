@@ -10,10 +10,35 @@
 @using Client.Layout
 
 @using BaseLibrary.DTOs
+@using BaseLibrary.Entities
+@using Client.ApplicationStates
 @using ClientLibrary.Helper
 @using Microsoft.AspNetCore.Components.Authorization
 @using ClientLibrary.Services.Contracts
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.DropDowns
 
 @inject AuthenticationStateProvider AuthStateProvider
-@inject IUserAccountService accountService
 @inject NavigationManager NavManager
+
+@* /Authentication *@
+@inject IUserAccountService AccountService
+
+@* /Navbar tabs communication state handling *@
+@inject GlobalState GlobalState
+
+@* /Syncfusion dialog service *@
+@inject SfDialogService DialogService
+
+@* /Departments related services *@
+@inject IGenericServiceInterface<GeneralDepartment> GeneralDepartmentService
+@inject IGenericServiceInterface<Department> DepartmentService
+@inject IGenericServiceInterface<Branch> BranchService
+
+@* /Location related services *@
+@inject IGenericServiceInterface<Country> CountryService
+@inject IGenericServiceInterface<City> CityService
+@inject IGenericServiceInterface<Town> TownService
+
+@* /Employee related services *@
+@inject IGenericServiceInterface<Employee> EmployeeService
