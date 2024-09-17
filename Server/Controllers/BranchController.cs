@@ -6,7 +6,7 @@ namespace Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DepartmentController(IGenericRepositoryInterface<Department> genericRepositoryInterface) : GenericController<Department>(genericRepositoryInterface)
+    public class BranchController(IGenericRepositoryInterface<Branch> genericRepositoryInterface) : GenericController<Branch>(genericRepositoryInterface)
     {
 
     }
